@@ -1,6 +1,13 @@
 const Post = require("../../models/Post");
 
 exports.createFundPost = async (req, res) => {
+  const isValid = checkValid(req.body);
+  if (!isValid) {
+    return res.status(400).json({
+      success: false,
+      message: "Please provide all required fields",
+    });
+  }
   try {
     const post = await Post.create({
       title: req.body.title,
