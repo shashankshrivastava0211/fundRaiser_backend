@@ -1,7 +1,11 @@
 const app = require("express");
-const { createFundPost } = require("../controller/fundRaiser/fundRaiser");
+const {
+  createFundPost,
+  getAllPosts,
+} = require("../controller/fundRaiser/fundRaiser");
 const fundRaiserRouter = app.Router();
 
-fundRaiserRouter.post("/createFunderaiserPost", createFundPost);
+fundRaiserRouter.post("/createFundRaiserPost", createFundPost);
+fundRaiserRouter.get("/createFundRaiserPost", getAllPosts);
 
 module.exports = fundRaiserRouter;
