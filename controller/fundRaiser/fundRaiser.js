@@ -34,7 +34,7 @@ exports.getAllPosts = async (req, res) => {
     const filters = {};
     // let page = parseInt(req.query.page) || 1;
     // let limit = parseInt(req.query.limit) || 3;
-    const { title, category, location, page, limit } = req.query;
+    const { title, category, location, page, limit, } = req.query;
     if (title) {
       filters.title = { $regex: title, $options: "i" };
     }

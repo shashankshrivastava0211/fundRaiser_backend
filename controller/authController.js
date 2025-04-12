@@ -1,6 +1,6 @@
 const { default: User } = require("../models/User");
 
-exports.authCobntroller = async (req, res) => {
+exports.authController = async (req, res) => {
   try {
     const isUser = await User.findOne({ email: req.body.email });
     if (isUser) {
