@@ -2,6 +2,7 @@ const express = require("express");
 const { Router } = require("express");
 const { authController } = require("../controller/authController");
 const passport = require("passport");
+const isAuthenticated = require("../middlewares/auth");
 
 const authRouter = express.Router();
 
@@ -16,7 +17,7 @@ authRouter.get(
 
 authRouter.post("/signUp", authController);
 
-authRouter.get("/me", (req, res) => {
+authRouter.get("/me", isAuthenticated, (req, res) => {
   if (req.isAuthenticated()) {
     res.status(200).send(req.user);
   } else {

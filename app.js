@@ -17,29 +17,38 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      sameSite: "none",
+      sameSite: "lax",
       secure: false, // true in production
-      httpOnly: false, // "none" in production
+      httpOnly: true, // "none" in production
     },
   })
 );
 
 connectPassport();
 app.use(cookieParser());
+// app.use(
+//   cors({
+//     credentials: true,
+//     origin: "*",
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//   })
+// );
+
 app.use(
   cors({
-    credentials: true,
     origin: "http://localhost:5173",
+    credentials: true, // ✅ This is required for cookies
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
+
 app.use(passport.authenticate("session"));
 app.use(passport.initialize());
 app.use(passport.session());
 app.enable("trust proxy");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+
 app.use("/api/fundRaiser", fundRaiserRouter);
 app.use("/api/auth", authRouter);
 
