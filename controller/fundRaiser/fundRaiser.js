@@ -2,6 +2,7 @@ const Post = require("../../models/Post");
 const checkValid = require("../../utilities/checkPostBody");
 
 exports.createFundPost = async (req, res) => {
+  console.log(req.body);
   const isValid = checkValid(req.body);
   if (!isValid) {
     return res.status(400).json({
@@ -10,11 +11,16 @@ exports.createFundPost = async (req, res) => {
     });
   }
   try {
+    const image=req.file? req.file.buffer:null;
     const post = await Post.create({
       title: req.body.title,
       description: req.body.description,
       goal: req.body.goal,
-      image: req.body.image,
+      image: image,
+      endDate:req.body.endDate,
+      campaignStory:req.body.campaignStory,
+      contactEmail:req.body.contactEmail,
+      contactPhone:req.body.contactPhone,
       // userId: req.user._id,
       category: req.body.category,
       location: req.body.location,
@@ -41,7 +47,7 @@ exports.getAllPosts = async (req, res) => {
     if (category) {
       filters.category = { $regex: category, $options: "i" };
     }
-    if (location) {
+    if (location && location !== 'All Locations') {
       filters.location = { $regex: location, $options: "i" };
     }
 

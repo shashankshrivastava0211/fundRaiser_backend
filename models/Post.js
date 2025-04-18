@@ -33,9 +33,13 @@ const postSchema = new mongoose.Schema({
     },
     required: [true, "Category is required"],
   },
+  endDate:{type :Date},
+  campaignStory:{type:String},
+  contactEmail:{type:String},
+  contactPhone:{type:String},
   location: {
     type: String,
-    required: [true, "Location is required"],
+    // required: [true, "Location is required"],
   },
   goal: {
     type: Number,
@@ -46,8 +50,8 @@ const postSchema = new mongoose.Schema({
   currentAmount: {
     type: Number,
     default: 0,
-    required: [true, "Current amount is required"],
-    min: [0, "Current amount cannot be negative"],
+    // required: [true, "Current amount is required"],
+    // min: [0, "Current amount cannot be negative"],
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
