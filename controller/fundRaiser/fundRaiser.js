@@ -1,53 +1,20 @@
 const Post = require("../../models/Post");
 const checkValid = require("../../utilities/checkPostBody");
 
-exports.createFundPost = async (req, res) => {
-  console.log(req.body);
-  const isValid = checkValid(req.body);
-  if (!isValid) {
-    return res.status(400).json({
-      success: false,
-      message: "Please provide all required fields",
-    });
-  }
-  try {
-    const image=req.file? req.file.buffer:null;
-    const post = await Post.create({
-      title: req.body.title,
-      description: req.body.description,
-      goal: req.body.goal,
-      image: image,
-      endDate:req.body.endDate,
-      campaignStory:req.body.campaignStory,
-      contactEmail:req.body.contactEmail,
-      contactPhone:req.body.contactPhone,
-      // userId: req.user._id,
-      category: req.body.category,
-      location: req.body.location,
-      // user: req.user._id,
-    });
-    res.status(201).json({
-      success: true,
-      post,
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: "Internal server error" });
-  }
-};
 exports.getAllPosts = async (req, res) => {
   try {
+    //aggregate this for amunt
     const filters = {};
     // let page = parseInt(req.query.page) || 1;
     // let limit = parseInt(req.query.limit) || 3;
-    const { title, category, location, page, limit, } = req.query;
+    const { title, category, location, page, limit } = req.query;
     if (title) {
       filters.title = { $regex: title, $options: "i" };
     }
     if (category) {
       filters.category = { $regex: category, $options: "i" };
     }
-    if (location && location !== 'All Locations') {
+    if (location && location !== "All Locations") {
       filters.location = { $regex: location, $options: "i" };
     }
 
@@ -70,5 +37,18 @@ exports.getAllPosts = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+exports.getSinglePost = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+    res.status(200).json({ message: "Post fetched successfully", post });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };

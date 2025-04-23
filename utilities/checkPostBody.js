@@ -1,7 +1,7 @@
 const checkValid = (body) => {
-  console.log("from check valid",body);
+  console.log("from check valid", body);
   const { title, description, goal, image, category } = body;
-  if (!title || !description || !goal || !image || !category ) {
+  if (!title || !description || !goal || !category) {
     return false;
   }
   return true;

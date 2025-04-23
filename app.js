@@ -48,7 +48,9 @@ app.use(passport.session());
 app.enable("trust proxy");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 app.use("/api/fundRaiser", fundRaiserRouter);
 app.use("/api/auth", authRouter);
 

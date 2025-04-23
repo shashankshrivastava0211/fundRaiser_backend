@@ -10,7 +10,7 @@ const postSchema = new mongoose.Schema({
   description: {
     type: String,
     required: [true, "Description is required"],
-    minlength: [20, "Description must be at least 20 characters long"],
+    // minlength: [20, "Description must be at least 20 characters long"],
   },
   image: {
     data: Buffer,
@@ -33,10 +33,10 @@ const postSchema = new mongoose.Schema({
     },
     required: [true, "Category is required"],
   },
-  endDate:{type :Date},
-  campaignStory:{type:String},
-  contactEmail:{type:String},
-  contactPhone:{type:String},
+  endDate: { type: Date },
+  campaignStory: { type: String },
+  contactEmail: { type: String },
+  contactPhone: { type: String },
   location: {
     type: String,
     // required: [true, "Location is required"],
