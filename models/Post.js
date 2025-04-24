@@ -59,6 +59,10 @@ const postSchema = new mongoose.Schema({
     default: null,
     // required: [true, "User reference is required"],
   },
+  completed: {
+    type: Boolean,
+    default: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

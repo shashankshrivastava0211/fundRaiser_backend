@@ -7,6 +7,7 @@ const passport = require("passport");
 const connectPassport = require("./utilities/Provider");
 const authRouter = require("./routes/auth");
 const cookieParser = require("cookie-parser");
+const paymentRouter = require("./routes/payments/paymentsRoutes");
 
 const app = express();
 require("./config/db");
@@ -53,6 +54,7 @@ app.get("/", (req, res) => {
 });
 app.use("/api/fundRaiser", fundRaiserRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/fundRaiser/pay", paymentRouter);
 
 app.listen(4000, () => {
   console.log("Server is running on port 4000");

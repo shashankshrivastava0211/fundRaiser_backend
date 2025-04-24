@@ -2,7 +2,10 @@ const express = require("express");
 const multer = require("multer");
 const Post = require("../models/Post");
 const checkValid = require("../utilities/checkPostBody");
-const { getAllPosts } = require("../controller/fundRaiser/fundRaiser");
+const {
+  getAllPosts,
+  getSinglePost,
+} = require("../controller/fundRaiser/fundRaiser");
 
 // Configure Multer
 const storage = multer.memoryStorage();
@@ -73,5 +76,6 @@ fundRaiserRouter.post(
 
 // Get Posts Route
 fundRaiserRouter.get("/fundPosts", getAllPosts);
+fundRaiserRouter.get("/fundPost/:id", getSinglePost);
 
 module.exports = fundRaiserRouter;
